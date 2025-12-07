@@ -3,6 +3,7 @@
 ![Java](https://img.shields.io/badge/Java-21-orange?style=for-the-badge&logo=java)
 ![Spring Boot](https://img.shields.io/badge/Spring_Boot-4.0.0-green?style=for-the-badge&logo=spring-boot)
 ![Thymeleaf](https://img.shields.io/badge/Thymeleaf-Templating-green?style=for-the-badge&logo=thymeleaf)
+[![Java CI with Maven](https://github.com/hendrapaiton/pamdus/actions/workflows/maven.yml/badge.svg)](https://github.com/hendrapaiton/pamdus/actions/workflows/maven.yml)
 
 **PAMDus** adalah sistem manajemen modern untuk Perusahaan Air Minum tingkat Dusun/Desa. Aplikasi ini dirancang untuk mendigitalisasi proses operasional PDAM skala kecil, mulai dari pencatatan meter hingga penanganan keluhan pelanggan, guna meningkatkan efisiensi dan transparansi layanan air bersih.
 
@@ -59,7 +60,7 @@ Ikuti langkah-langkah berikut untuk menjalankan aplikasi di lingkungan lokal And
 1.  **Clone Repository**
 
     ```bash
-    git clone https://github.com/username/pamdus.git
+    git clone https://github.com/hendrapaiton/pamdus.git
     cd pamdus
     ```
 
