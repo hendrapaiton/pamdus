@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PAMDUS Admin - Dashboard</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome 6 -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        font-family: "Plus Jakarta Sans", sans-serif;
+        background-color: #f8f9fa;
+      }
+      .sidebar {
+        height: 100vh;
+        width: 250px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        padding-top: 20px;
+        background: linear-gradient(135deg, #0061f2 0%, #6900f2 100%);
+        border-right: none;
+        z-index: 1000;
+      }
+      .sidebar-brand {
+        padding: 0 1.5rem 1.5rem;
+        display: flex;
+        align-items: center;
+        font-weight: 700;
+        font-size: 1.25rem;
+        color: #fff;
+      }
+      .nav-link {
+        color: rgba(255, 255, 255, 0.8);
+        padding: 0.75rem 1.5rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+      .nav-link:hover,
+      .nav-link.active {
+        color: #fff;
+        background-color: rgba(255, 255, 255, 0.15);
+      }
+      .nav-link i {
+        width: 1.25rem;
+        text-align: center;
+      }
+      .main-content {
+        margin-left: 250px;
+        padding: 2rem;
+      }
+      .card-stat {
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+          0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        transition: transform 0.2s;
+      }
+      .card-stat:hover {
+        transform: translateY(-5px);
+      }
+      .stat-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+      }
+      .table-custom th {
+        font-weight: 600;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: #6c757d;
+      }
+      .header-nav {
+        background-color: #fff;
+        border-bottom: 1px solid #dee2e6;
+        padding: 0.75rem 2rem;
+        margin-left: 250px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <nav class="sidebar">
+      <a href="#" class="sidebar-brand text-decoration-none">
+        <span class="fa-stack me-2" style="font-size: 0.6em">
+          <i class="fas fa-circle fa-stack-2x text-primary"></i>
+          <i class="fas fa-faucet-drip fa-stack-1x fa-inverse"></i>
+        </span>
+        PAMDUS Admin
+      </a>
+      <div class="d-flex flex-column h-100">
+        <ul class="nav flex-column mb-auto">
+          <li class="nav-item">
+            <a href="#" class="nav-link active">
+              <i class="fas fa-th-large"></i> Dashboard
+            </a>
+          </li>
+          <li class="nav-item mt-3">
+            <div class="px-3">
+              <small
+                class="text-uppercase fw-bold"
+                style="font-size: 0.7em; color: rgba(255, 255, 255, 0.5)"
+                >Services</small
+              >
+            </div>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fas fa-newspaper"></i> Berita & Info
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fas fa-cogs"></i> Layanan
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fas fa-inbox"></i> Masukan Masuk
+              <span class="badge bg-danger rounded-pill ms-auto">3</span>
+            </a>
+          </li>
+          <li class="nav-item mt-4">
+            <div class="px-3">
+              <small
+                class="text-uppercase fw-bold"
+                style="font-size: 0.7em; color: rgba(255, 255, 255, 0.5)"
+                >System</small
+              >
+            </div>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fas fa-users"></i> Users
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fas fa-sliders-h"></i> Pengaturan
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Top Header -->
+    <header
+      class="header-nav d-flex justify-content-between align-items-center"
+    >
+      <h5 class="m-0 fw-bold text-dark">Dashboard Overview</h5>
+      <div class="d-flex align-items-center gap-3">
+        <button
+          class="btn btn-outline-light text-secondary border-0 position-relative"
+        >
+          <i class="fas fa-bell"></i>
+          <span
+            class="position-absolute top-25 start-75 translate-middle p-1 bg-danger border border-light rounded-circle"
+          >
+            <span class="visually-hidden">New alerts</span>
+          </span>
+        </button>
+        <div class="dropdown">
+          <a
+            href="#"
+            class="d-flex align-items-center text-dark text-decoration-none dropdown-toggle"
+            id="dropdownUser1"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <div
+              class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-2"
+              style="width: 32px; height: 32px"
+            >
+              <i class="fas fa-user"></i>
+            </div>
+            <span>Admin</span>
+          </a>
+          <ul
+            class="dropdown-menu text-small shadow"
+            aria-labelledby="dropdownUser1"
+          >
+            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><a class="dropdown-item" href="#">Settings</a></li>
+            <li><hr class="dropdown-divider" /></li>
+            <li><a class="dropdown-item" href="#">Sign out</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Stats Row -->
+      <div class="row g-4 mb-4">
+        <div class="col-xl-3 col-md-6">
+          <div class="card card-stat p-3 bg-white h-100">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <p class="text-muted mb-1 small fw-semibold">
+                  TOTAL PENGUNJUNG
+                </p>
+                <h3 class="fw-bold mb-0">1,245</h3>
+                <small class="text-success"
+                  ><i class="fas fa-arrow-up"></i> 12% bulan ini</small
+                >
+              </div>
+              <div class="stat-icon bg-primary bg-opacity-10 text-primary">
+                <i class="fas fa-chart-line"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+          <div class="card card-stat p-3 bg-white h-100">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <p class="text-muted mb-1 small fw-semibold">MASUKAN BARU</p>
+                <h3 class="fw-bold mb-0">28</h3>
+                <small class="text-danger"
+                  ><i class="fas fa-arrow-down"></i> 3 hari ini</small
+                >
+              </div>
+              <div class="stat-icon bg-warning bg-opacity-10 text-warning">
+                <i class="fas fa-envelope"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+          <div class="card card-stat p-3 bg-white h-100">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <p class="text-muted mb-1 small fw-semibold">BERITA AKTIF</p>
+                <h3 class="fw-bold mb-0">12</h3>
+                <small class="text-muted">Terakhir update 2 jam lalu</small>
+              </div>
+              <div class="stat-icon bg-success bg-opacity-10 text-success">
+                <i class="fas fa-newspaper"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-md-6">
+          <div class="card card-stat p-3 bg-white h-100">
+            <div class="d-flex justify-content-between align-items-start">
+              <div>
+                <p class="text-muted mb-1 small fw-semibold">LAYANAN</p>
+                <h3 class="fw-bold mb-0">8</h3>
+                <small class="text-success">Semua layanan normal</small>
+              </div>
+              <div class="stat-icon bg-info bg-opacity-10 text-info">
+                <i class="fas fa-server"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        <!-- Recent News -->
+        <div class="col-lg-8">
+          <div class="card border-0 shadow-sm rounded-4 h-100">
+            <div
+              class="card-header bg-white border-0 py-3 d-flex justify-content-between align-items-center"
+            >
+              <h6 class="mb-0 fw-bold">Berita & Pengumuman Terbaru</h6>
+              <button class="btn btn-sm btn-primary rounded-pill px-3">
+                <i class="fas fa-plus me-1"></i> Tambah Baru
+              </button>
+            </div>
+            <div class="table-responsive">
+              <table class="table table-hover table-custom align-middle mb-0">
+                <thead class="bg-light">
+                  <tr>
+                    <th class="ps-4">Judul</th>
+                    <th>Kategori</th>
+                    <th>Tanggal</th>
+                    <th>Status</th>
+                    <th class="text-end pe-4">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="ps-4">
+                      <div class="d-flex align-items-center">
+                        <div
+                          class="bg-light rounded me-3"
+                          style="
+                            width: 40px;
+                            height: 40px;
+                            background-image: url('/img/news_pipeline.png');
+                            background-size: cover;
+                          "
+                        ></div>
+                        <div>
+                          <div class="fw-bold text-dark">
+                            Peningkatan Kualitas Pipa
+                          </div>
+                          <small class="text-muted">Oleh: Admin</small>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="badge bg-primary bg-opacity-10 text-primary"
+                        >Berita</span
+                      >
+                    </td>
+                    <td>10 Des 2024</td>
+                    <td>
+                      <span class="badge rounded-pill bg-success"
+                        >Published</span
+                      >
+                    </td>
+                    <td class="text-end pe-4">
+                      <button class="btn btn-sm btn-light text-primary">
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button class="btn btn-sm btn-light text-danger">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="ps-4">
+                      <div class="d-flex align-items-center">
+                        <div
+                          class="bg-light rounded me-3"
+                          style="
+                            width: 40px;
+                            height: 40px;
+                            background-image: url('/img/news_maintenance.png');
+                            background-size: cover;
+                          "
+                        ></div>
+                        <div>
+                          <div class="fw-bold text-dark">
+                            Jadwal Pemeliharaan Rutin
+                          </div>
+                          <small class="text-muted">Oleh: Admin</small>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="badge bg-warning bg-opacity-10 text-warning"
+                        >Pengumuman</span
+                      >
+                    </td>
+                    <td>08 Des 2024</td>
+                    <td>
+                      <span class="badge rounded-pill bg-success"
+                        >Published</span
+                      >
+                    </td>
+                    <td class="text-end pe-4">
+                      <button class="btn btn-sm btn-light text-primary">
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button class="btn btn-sm btn-light text-danger">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="ps-4">
+                      <div class="d-flex align-items-center">
+                        <div
+                          class="bg-light rounded me-3"
+                          style="
+                            width: 40px;
+                            height: 40px;
+                            background-image: url('/img/news_tips.png');
+                            background-size: cover;
+                          "
+                        ></div>
+                        <div>
+                          <div class="fw-bold text-dark">Tips Hemat Air</div>
+                          <small class="text-muted">Oleh: Admin</small>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <span class="badge bg-success bg-opacity-10 text-success"
+                        >Tips</span
+                      >
+                    </td>
+                    <td>01 Des 2024</td>
+                    <td>
+                      <span class="badge rounded-pill bg-secondary">Draft</span>
+                    </td>
+                    <td class="text-end pe-4">
+                      <button class="btn btn-sm btn-light text-primary">
+                        <i class="fas fa-edit"></i>
+                      </button>
+                      <button class="btn btn-sm btn-light text-danger">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Inquiries -->
+        <div class="col-lg-4">
+          <div class="card border-0 shadow-sm rounded-4 h-100">
+            <div class="card-header bg-white border-0 py-3">
+              <h6 class="mb-0 fw-bold">Masukan Terbaru</h6>
+            </div>
+            <div class="card-body p-0">
+              <div class="list-group list-group-flush">
+                <a href="#" class="list-group-item list-group-item-action p-3">
+                  <div class="d-flex w-100 justify-content-between mb-1">
+                    <h6 class="mb-1 fw-bold">Budi Santoso</h6>
+                    <small class="text-muted">Baru saja</small>
+                  </div>
+                  <p class="mb-1 text-muted small single-line-text">
+                    Air di daerah utara sedikit keruh pagi ini, mohon dicek.
+                  </p>
+                  <span class="badge bg-danger bg-opacity-10 text-danger small"
+                    >Komplain</span
+                  >
+                </a>
+                <a href="#" class="list-group-item list-group-item-action p-3">
+                  <div class="d-flex w-100 justify-content-between mb-1">
+                    <h6 class="mb-1 fw-bold">Siti Aminah</h6>
+                    <small class="text-muted">2 jam lalu</small>
+                  </div>
+                  <p class="mb-1 text-muted small single-line-text">
+                    Terima kasih atas respons cepat perbaikan pipa kemarin.
+                  </p>
+                  <span
+                    class="badge bg-success bg-opacity-10 text-success small"
+                    >Apresiasi</span
+                  >
+                </a>
+                <a href="#" class="list-group-item list-group-item-action p-3">
+                  <div class="d-flex w-100 justify-content-between mb-1">
+                    <h6 class="mb-1 fw-bold">Ahmad Rizki</h6>
+                    <small class="text-muted">Yesterday</small>
+                  </div>
+                  <p class="mb-1 text-muted small single-line-text">
+                    Apakah ada pemutihan denda untuk bulan ini?
+                  </p>
+                  <span class="badge bg-info bg-opacity-10 text-info small"
+                    >Tanya</span
+                  >
+                </a>
+              </div>
+            </div>
+            <div class="card-footer bg-white text-center border-0 py-3">
+              <a href="#" class="text-decoration-none fw-bold small"
+                >Lihat Semua Masukan</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
